@@ -1,34 +1,59 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Ator extends Pessoa{
+public class Ator extends Pessoa {
     private int registro;
     Scanner scanner = new Scanner(System.in);
 
-    public Boolean inserir() {
+    public int getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(int registro) {
+        this.registro = registro;
+    }
+
+    public Ator() {
+        super();
+        this.registro = 0;
+    }
+
+    public Ator(int registro, String nome, String cpf, String email) {
+        super(nome, cpf, email);
+        this.registro = registro;
+    }
+
+    public Boolean cadastrar(Ator ator) {
         try {
-            FileWriter fw = new FileWriter("generos.txt", true);
+            FileWriter fw = new FileWriter("atores.txt", true);
             BufferedWriter writer = new BufferedWriter(fw);
 
             System.out.println("Digite um numero de registro para este ator: ");
-            this.registro = scanner.nextInt();
+            // this.registro = scanner.nextInt();
+            ator.registro = scanner.nextInt();
             scanner.nextLine();
 
             System.out.println("Digite o nome deste ator: ");
-            nome = scanner.nextLine();
-            this.setNome(nome);
+            String nome = scanner.nextLine();
+            // this.setNome(nome);
+            ator.setNome(nome);
 
             System.out.println("Digite o cpf deste ator: ");
-            cpf = scanner.nextLine();
-            this.setCpf(cpf);
+            String cpf = scanner.nextLine();
+            // this.setCpf(cpf);
+            ator.setCpf(cpf);
 
             System.out.println("Digite o email deste ator: ");
-            email = scanner.nextLine();
-            this.setEmail(email);
+            String email = scanner.nextLine();
+            // this.setEmail(email);
+            ator.setEmail(email);
 
-            writer.write(nome + ";" + registro + ";" + cpf + ";" + email);
+            writer.write(registro + ";" + nome + ";" + cpf + ";" + email);
             writer.newLine();
 
             scanner.close();
@@ -39,6 +64,65 @@ public class Ator extends Pessoa{
             e.printStackTrace();
             return false;
 
+        }
+    }
+
+    public ArrayList<Ator> listar(Ator ator) {
+
+        ArrayList<Ator> array = new ArrayList<>();
+
+        try {
+            FileReader fr = new FileReader("atores.txt");
+            BufferedReader reader = new BufferedReader(fr);
+            String linha;
+
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(";");
+                int registro = Integer.parseInt(dados[0]);
+                String nome = dados[1];
+                String cpf = dados[2];
+                String email = dados[3];
+
+                Ator at = new Ator(registro, nome, cpf, email);
+
+                array.add(at);
+
+            }
+            reader.close();
+            return array;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return array;
+
+        }
+    }
+
+    public Ator consultar(Ator ator) {
+        System.out.println("Digite numero do registro do ator que voce deseja consultar: ");
+        int registroBuscado = scanner.nextInt();
+        scanner.nextLine();
+
+        ArrayList<Ator> array = this.listar(ator);
+        Ator atorEncontrado = null;
+        try {
+            for (Ator atores : array) {
+                if (atores.getRegistro() == registroBuscado) {
+                    atorEncontrado = atores;
+
+                    System.out.println("Registro: " + atorEncontrado.getRegistro() + " Nome: "
+                            + atorEncontrado.getNome() + " CPF: " + atorEncontrado.getCpf() + " Email: "
+                            + atorEncontrado.getEmail());
+
+                }
+            }
+            scanner.close();
+            return atorEncontrado;
+
+        } catch (NullPointerException n) {
+            n.printStackTrace();
+            scanner.close();
+            return atorEncontrado;
         }
     }
 }
