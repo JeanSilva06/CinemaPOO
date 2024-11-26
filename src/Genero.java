@@ -91,8 +91,8 @@ public class Genero {
                 if (genero.id == id) {
                     g = genero;
                     // System.out.println("Genero encontrado com sucesso.");
-                    // System.out.println("Id: " + g.id + " Desc: " + g.desc + " Status: " +
-                    // g.status);
+                    System.out.println("Id: " + g.id + " Desc: " + g.desc + " Status: " +
+                    g.status);
                 }
             }
             return g;
