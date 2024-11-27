@@ -11,5 +11,8 @@ public class App {
 
         // Sala sala = new Sala();
         // sala.consultar(sala);
+
+        Menu menu = new Menu();
+        menu.realizarOperacao();
     }
 }

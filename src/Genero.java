@@ -42,7 +42,6 @@ public class Genero {
             writer.write(id + ";" + desc + ";" + status);
             writer.newLine();
 
-            scanner.close();
             writer.close();
             return true;
 
