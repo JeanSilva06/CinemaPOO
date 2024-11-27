@@ -24,6 +24,38 @@ public class Genero {
         this.status = status;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
     public Boolean inserir() {
         try {
             FileWriter fw = new FileWriter("generos.txt", true);
@@ -82,24 +114,32 @@ public class Genero {
         }
     }
 
-    public Genero consultar(int id) {
+    public Genero consultar(Genero genero) {
+
+        System.out.println("Digite o id do genero que voce deseja consultar: ");
+        int idBuscado = scanner.nextInt();
+        scanner.nextLine();
+
         ArrayList<Genero> array = this.listar();
-        Genero g = null;
+        Genero generoEncontrado = null;
+
         try {
-            for (Genero genero : array) {
-                if (genero.id == id) {
-                    g = genero;
-                    // System.out.println("Genero encontrado com sucesso.");
-                    System.out.println("Id: " + g.id + " Desc: " + g.desc + " Status: " +
-                    g.status);
+            for (Genero generos : array) {
+                if (generos.getId() == idBuscado) {
+                    generoEncontrado = generos;
+
+                    System.out.println("Id do genero: "
+                            + generoEncontrado.getId() + " Descricao: "
+                            + generoEncontrado.getDesc() + " Status: " + generoEncontrado.getStatus());
+
                 }
             }
-            return g;
+            return generoEncontrado;
+
         } catch (NullPointerException n) {
             n.printStackTrace();
-            return g;
+            return generoEncontrado;
         }
-
     }
 
     // public void consultarInfo(Genero g) {
