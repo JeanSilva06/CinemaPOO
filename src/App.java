@@ -3,10 +3,13 @@ public class App {
         // Ator ator = new Ator();
         // ator.cadastrar(ator);
 
-        Funcionario funcionario = new Funcionario();
-        funcionario.consultar(funcionario);
+        // Funcionario funcionario = new Funcionario();
+        // funcionario.consultar(funcionario);
 
         // TipoAssento tipoAssento = new TipoAssento();
         // tipoAssento.consultar(tipoAssento);
+
+        // Sala sala = new Sala();
+        // sala.consultar(sala);
     }
 }
