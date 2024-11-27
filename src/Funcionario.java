@@ -4,12 +4,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Funcionario extends Pessoa {
     private int matricula;
-    private Date horarioTrabalho;
+    private String horarioTrabalho;
     Scanner scanner = new Scanner(System.in);
 
     public int getMatricula() {
@@ -20,24 +19,24 @@ public class Funcionario extends Pessoa {
         this.matricula = matricula;
     }
 
-    public Date getHorarioTrabalho() {
+    public String getHorarioTrabalho() {
         return horarioTrabalho;
     }
 
-    public void setHorarioTrabalho(Date horarioTrabalho) {
+    public void setHorarioTrabalho(String horarioTrabalho) {
         this.horarioTrabalho = horarioTrabalho;
     }
 
     public Funcionario() {
         super();
         this.matricula = 0;
-        this.horarioTrabalho = new Date();
+        this.horarioTrabalho = "HoraInicial:MinutoInicial - HoraFinal:MinutoFinal";
     }
 
-    public Funcionario(int matricula, String nome, String cpf, String email) {
+    public Funcionario(int matricula, String horarioTrabalho, String nome, String cpf, String email) {
         super(nome, cpf, email);
         this.matricula = matricula;
-        this.horarioTrabalho = new Date();
+        this.horarioTrabalho = horarioTrabalho;
     }
 
     public Boolean cadastrar(Funcionario funcionario) {
@@ -48,6 +47,11 @@ public class Funcionario extends Pessoa {
             System.out.println("Digite a matricula para este funcionario: ");
             funcionario.matricula = scanner.nextInt();
             scanner.nextLine();
+
+            System.out.println(
+                    "Digite o horario de entrada e saida desse funcionario seguindo o exemplo HoraInicial:MinutoInicial - HoraFinal:MinutoFinal: ");
+            funcionario.horarioTrabalho = scanner.nextLine();
+            funcionario.setNome(horarioTrabalho);
 
             System.out.println("Digite o nome deste funcionario: ");
             String nome = scanner.nextLine();
@@ -88,12 +92,12 @@ public class Funcionario extends Pessoa {
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";");
                 int matricula = Integer.parseInt(dados[0]);
-                String date = dados[1]; 
+                String horarioTrabalho = dados[1]; // perguntar sobre String --> date
                 String nome = dados[2];
                 String cpf = dados[3];
                 String email = dados[4];
 
-                Funcionario func = new Funcionario(matricula, nome, cpf, email);
+                Funcionario func = new Funcionario(matricula, horarioTrabalho, nome, cpf, email);
 
                 array.add(func);
 
@@ -105,6 +109,35 @@ public class Funcionario extends Pessoa {
             e.printStackTrace();
             return array;
 
+        }
+    }
+
+    public Funcionario consultar(Funcionario funcionario) {
+        System.out.println("Digite a matricula do funcionario que voce deseja consultar: ");
+        int matriculaBuscada = scanner.nextInt();
+        scanner.nextLine();
+
+        ArrayList<Funcionario> array = this.listar(funcionario);
+        Funcionario funcionarioEncontrado = null;
+        try {
+            for (Funcionario funcionarios : array) {
+                if (funcionarios.getMatricula() == matriculaBuscada) {
+                    funcionarioEncontrado = funcionarios;
+
+                    System.out.println("Matricula: " + funcionarioEncontrado.getMatricula() + " Horario de trabalho: "
+                            + funcionarioEncontrado.getHorarioTrabalho() + " Nome: "
+                            + funcionarioEncontrado.getNome() + " CPF: " + funcionarioEncontrado.getCpf() + " Email: "
+                            + funcionarioEncontrado.getEmail());
+
+                }
+            }
+            scanner.close();
+            return funcionarioEncontrado;
+
+        } catch (NullPointerException n) {
+            n.printStackTrace();
+            scanner.close();
+            return funcionarioEncontrado;
         }
     }
 }
