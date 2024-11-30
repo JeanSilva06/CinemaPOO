@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Filme {
+    // Atributos
     private int id;
     private String titulo;
     private String sinopse;
@@ -14,6 +15,55 @@ public class Filme {
     private int classificacao;
     private String status;
     Scanner scanner = new Scanner(System.in);
+
+    // Gets e Sets
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getSinopse() {
+        return sinopse;
+    }
+
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public int getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(int classificacao) {
+        this.classificacao = classificacao;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Filme() {
         this.id = 0;
@@ -24,46 +74,43 @@ public class Filme {
         this.status = "A";
     }
 
-    public Filme(int id, String titulo, String sinopse, int idGenero, int classificacao, String status) {
+    public Filme(int id, String titulo, String sinopse, Genero genero, int classificacao, String status) {
         this.id = id;
         this.titulo = titulo;
         this.sinopse = sinopse;
-        this.genero = genero.consultar(idGenero);
+        this.genero = genero;
         this.classificacao = classificacao;
         this.status = status;
     }
 
-    public Boolean inserir() {
+    public Boolean cadastrar(Filme filme) {
         try {
             FileWriter fw = new FileWriter("filmes.txt", true);
             BufferedWriter writer = new BufferedWriter(fw);
 
             System.out.println("Digite um id para este filme: ");
-            id = scanner.nextInt();
+            filme.id = scanner.nextInt();
             scanner.nextLine();
 
             System.out.println("Digite um titulo para este filme: ");
-            titulo = scanner.nextLine();
+            filme.titulo = scanner.nextLine();
 
             System.out.println("Digite uma sinopse para este filme: ");
-            sinopse = scanner.nextLine();
+            filme.sinopse = scanner.nextLine();
 
-            System.out.println("Digite um id de genero para este filme: ");
-            int idGenero = scanner.nextInt();
-            genero.consultar(idGenero);
-            scanner.nextLine();
+            filme.genero = genero.consultar(genero);
 
             System.out.println("Digite uma classificacao para este filme: ");
-            classificacao = scanner.nextInt();
+            filme.classificacao = scanner.nextInt();
             scanner.nextLine();
 
             System.out.println("Digite o status A para ativar o filme e I para inativar: ");
-            status = scanner.nextLine();
+            filme.status = scanner.nextLine();
 
-            writer.write(id + ";" + titulo + ";" + sinopse + ";" + idGenero + ";" + classificacao + ";" + status);
+            writer.write(filme.id + ";" + filme.titulo + ";" + filme.sinopse + ";" + filme.genero.getId() + ";"
+                    + filme.classificacao + ";" + filme.status);
             writer.newLine();
 
-            scanner.close();
             writer.close();
             return true;
 
@@ -74,7 +121,7 @@ public class Filme {
         }
     }
 
-    public ArrayList<Filme> listar() {
+    public ArrayList<Filme> listar(Filme filme) {
 
         ArrayList<Filme> array = new ArrayList<>();
 
@@ -92,8 +139,13 @@ public class Filme {
                 int classificacao = Integer.parseInt(dados[4]);
                 String status = dados[5];
 
-                Filme filme = new Filme(id, titulo, sinopse, idGenero, classificacao, status);
-                // System.out.println(id + ";" + titulo + ";" + sinopse + ";" + idGenero + ";" + classificacao + ";" + status);
+                for (Genero generos : genero.listar(genero)) {
+                    if (generos.getId() == idGenero) {
+                        genero = generos;
+                    }
+                }
+
+                filme = new Filme(id, titulo, sinopse, genero, classificacao, status);
                 array.add(filme);
 
             }
@@ -104,6 +156,35 @@ public class Filme {
             e.printStackTrace();
             return array;
 
+        }
+    }
+
+    public Filme consultar(Filme filme) {
+        System.out.println("Digite o id do filme que voce deseja consultar ou associar: ");
+        int idBuscado = scanner.nextInt();
+        scanner.nextLine();
+
+        ArrayList<Filme> array = filme.listar(filme);
+        try {
+            for (Filme filmes : array) {
+                if (filmes.getId() == idBuscado) {
+                    filme = filmes;
+
+                    System.out.println("Filme encontrado com sucesso!\n");
+
+                    System.out.println(
+                            "Id do filme: " + filme.id + "\nTitulo: " + filme.titulo + "\nSinopse: "
+                                    + filme.sinopse + "\nGenero: " + filme.genero.getDesc() + "\nClassificacao: "
+                                    + filme.classificacao + "\nStatus: " + filme.status);
+
+                }
+            }
+            return filme;
+
+        } catch (NullPointerException n) {
+            n.printStackTrace();
+            scanner.close();
+            return filme;
         }
     }
 }

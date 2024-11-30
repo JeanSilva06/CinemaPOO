@@ -18,7 +18,7 @@ public class Menu {
                 System.out
                         .println("Acessando sistema de cinema...\n"
                                 + "\nDigite os seguintes numeros para efetuar acoes:\n"
-                                + "\n1: consultar generos de filmes");
+                                + "\n1: consultar generos de filmes\n" + "2: consultar atores\n");
                 operacao = scanner.nextInt();
                 scanner.nextLine();
             }
@@ -30,7 +30,7 @@ public class Menu {
                 scanner.nextLine();
 
                 if (operacaoClasse == 1) {
-                    if (genero.inserir() == true) {
+                    if (genero.cadastrar(genero) == true) {
                         System.out.println("Genero cadastrado com sucesso!\n\n" + "Deseja realizar mais alguma acao?\n"
                                 + "1 para sim\n2 para nao");
                         int novaOperacao = scanner.nextInt();
@@ -50,6 +50,46 @@ public class Menu {
 
                     System.out.println("Genero consultado com sucesso!\n\n" + "Deseja realizar mais alguma acao?\n"
                             + "1 para sim\n2 para nao");
+                    int novaOperacao = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (novaOperacao == 1) {
+                        operacao = 0;
+                    } else {
+                        System.out.println("Ok, obrigado por utilizar o SISTcinema\nFechando sistema...");
+                        operacaoEncerrada = true;
+                    }
+                }
+            }
+
+            // operação ator
+            if (operacao == 2) {
+                System.out.println("Acessando pagina de atores...\n"
+                        + "\nDigite os seguintes numeros para efetuar acoes\n" + "\n1: Cadastrar novo ator\n" + "2: Consultar ator\n");
+                int operacaoClasse = scanner.nextInt();
+                scanner.nextLine();
+
+                // tipos de operação ator
+                if (operacaoClasse == 1) {
+                    ator.cadastrar(ator);
+
+                    System.out.println("Ator cadastrado com sucesso!\n\n" + "Deseja realizar uma nova acao?\n"
+                            + "1 para sim\n" + "2 para nao");
+                    int novaOperacao = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (novaOperacao == 1) {
+                        operacao = 0;
+                    } else {
+                        System.out.println("Ok, obrigado por utilizar o SISTcinema\nFechando sistema...");
+                        operacaoEncerrada = true;
+                    }
+                }
+
+                if (operacaoClasse == 2) {
+                    ator.consultar(ator);
+
+                    System.out.println("Deseja realizar uma nova acao?\n" + "1 para sim\n" + "2 para nao");
                     int novaOperacao = scanner.nextInt();
                     scanner.nextLine();
 

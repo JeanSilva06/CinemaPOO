@@ -56,7 +56,6 @@ public class Ator extends Pessoa {
             writer.write(registro + ";" + nome + ";" + cpf + ";" + email);
             writer.newLine();
 
-            scanner.close();
             writer.close();
             return true;
 
@@ -83,9 +82,9 @@ public class Ator extends Pessoa {
                 String cpf = dados[2];
                 String email = dados[3];
 
-                Ator at = new Ator(registro, nome, cpf, email);
+                ator = new Ator(registro, nome, cpf, email);
 
-                array.add(at);
+                array.add(ator);
 
             }
             reader.close();
@@ -110,13 +109,14 @@ public class Ator extends Pessoa {
                 if (atores.getRegistro() == registroBuscado) {
                     atorEncontrado = atores;
 
+                    System.out.println("Ator encontrado com sucesso!\n");
+
                     System.out.println("Registro: " + atorEncontrado.getRegistro() + " Nome: "
                             + atorEncontrado.getNome() + " CPF: " + atorEncontrado.getCpf() + " Email: "
                             + atorEncontrado.getEmail());
 
                 }
             }
-            scanner.close();
             return atorEncontrado;
 
         } catch (NullPointerException n) {

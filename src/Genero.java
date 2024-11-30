@@ -12,18 +12,6 @@ public class Genero {
     private String status;
     Scanner scanner = new Scanner(System.in);
 
-    public Genero() {
-        this.id = 0;
-        this.desc = "";
-        this.status = "";
-    }
-
-    public Genero(int id, String desc, String status) {
-        this.id = id;
-        this.desc = desc;
-        this.status = status;
-    }
-
     public int getId() {
         return id;
     }
@@ -48,30 +36,34 @@ public class Genero {
         this.status = status;
     }
 
-    public Scanner getScanner() {
-        return scanner;
+    public Genero() {
+        this.id = 0;
+        this.desc = "";
+        this.status = "";
     }
 
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
+    public Genero(int id, String desc, String status) {
+        this.id = id;
+        this.desc = desc;
+        this.status = status;
     }
 
-    public Boolean inserir() {
+    public Boolean cadastrar(Genero genero) {
         try {
             FileWriter fw = new FileWriter("generos.txt", true);
             BufferedWriter writer = new BufferedWriter(fw);
 
             System.out.println("Digite um id para este genero: ");
-            this.id = scanner.nextInt();
+            genero.id = scanner.nextInt();
             scanner.nextLine();
 
             System.out.println("Digite uma descricao para este genero: ");
-            this.desc = scanner.nextLine();
+            genero.desc = scanner.nextLine();
 
             System.out.println("Digite o status A para ativar o genero e I para inativar: ");
-            this.status = scanner.nextLine();
+            genero.status = scanner.nextLine();
 
-            writer.write(id + ";" + desc + ";" + status);
+            writer.write(genero.id + ";" + genero.desc + ";" + genero.status);
             writer.newLine();
 
             writer.close();
@@ -84,7 +76,7 @@ public class Genero {
         }
     }
 
-    public ArrayList<Genero> listar() {
+    public ArrayList<Genero> listar(Genero genero) {
 
         ArrayList<Genero> array = new ArrayList<>();
 
@@ -100,7 +92,7 @@ public class Genero {
                 String status = dados[2];
 
                 // System.out.println("Id: " + id + " Desc: " + desc + " Status: " + status);
-                Genero genero = new Genero(id, desc, status);
+                genero = new Genero(id, desc, status);
                 array.add(genero);
 
             }
@@ -116,36 +108,28 @@ public class Genero {
 
     public Genero consultar(Genero genero) {
 
-        System.out.println("Digite o id do genero que voce deseja consultar: ");
+        System.out.println("Digite o id do genero que voce deseja consultar ou associar: ");
         int idBuscado = scanner.nextInt();
         scanner.nextLine();
 
-        ArrayList<Genero> array = this.listar();
-        Genero generoEncontrado = null;
+        ArrayList<Genero> array = this.listar(genero);
 
         try {
             for (Genero generos : array) {
                 if (generos.getId() == idBuscado) {
-                    generoEncontrado = generos;
+                    genero = generos;
 
                     System.out.println("Id do genero: "
-                            + generoEncontrado.getId() + " Descricao: "
-                            + generoEncontrado.getDesc() + " Status: " + generoEncontrado.getStatus());
+                            + genero.getId() + " Descricao: "
+                            + genero.getDesc() + " Status: " + genero.getStatus());
 
                 }
             }
-            return generoEncontrado;
+            return genero;
 
         } catch (NullPointerException n) {
             n.printStackTrace();
-            return generoEncontrado;
+            return genero;
         }
     }
-
-    // public void consultarInfo(Genero g) {
-
-    // System.out.println("Id: " + g.id + " Desc: " + g.desc + " Status: " +
-    // g.status);
-
-    // }
 }
