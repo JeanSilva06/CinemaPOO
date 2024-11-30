@@ -109,7 +109,7 @@ public class TipoAssento {
     }
 
     public TipoAssento consultar(TipoAssento tipoAssento) {
-        System.out.println("Digite o id do assento que voce deseja consultar: ");
+        System.out.println("Digite o id do tipo de assento que voce deseja consultar ou associar: ");
         int idBuscado = scanner.nextInt();
         scanner.nextLine();
 
