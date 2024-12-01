@@ -68,7 +68,7 @@ public class Ingresso {
             ingresso.idIngresso = scanner.nextInt();
             scanner.nextLine();
 
-            System.out.println("Digite um valor a ser pago por este ingresso");
+            System.out.println("Digite um valor a ser pago por este ingresso utilizando (,) para casas decimais");
             ingresso.valorPago = scanner.nextDouble();
             scanner.nextLine();
 
@@ -160,5 +160,14 @@ public class Ingresso {
             scanner.close();
             return ingresso;
         }
+    }
+
+    public void exibir() {
+        System.out.println("Id do ingresso: " + this.idIngresso + "\nValor Pago: " + this.valorPago
+                            + "\nSala: " + this.salaAssento.getSala().getIdSala() + "\nAssento: "
+                            + this.salaAssento.getAssento().getIdAssento() + "\nFilme em exibicao: "
+                            + this.sessao.getFilme().getTitulo() + "\nClassificacao do Filme: "
+                            + this.sessao.getFilme().getClassificacao() + "\nData e hora da sessao: "
+                            + this.sessao.getDataHoraSessao());
     }
 }

@@ -61,7 +61,7 @@ public class Sala {
 
     public Boolean cadastrar(Sala sala) {
         try {
-            FileWriter fw = new FileWriter("salas.txt", true);
+            FileWriter fw = new FileWriter("Salas.txt", true);
             BufferedWriter writer = new BufferedWriter(fw);
 
             System.out.println("Digite um id para esta sala: ");
@@ -96,7 +96,7 @@ public class Sala {
         ArrayList<Sala> array = new ArrayList<>();
 
         try {
-            FileReader fr = new FileReader("salas.txt");
+            FileReader fr = new FileReader("Salas.txt");
             BufferedReader reader = new BufferedReader(fr);
             String linha;
 
@@ -107,9 +107,9 @@ public class Sala {
                 String descricao = dados[2];
                 String status = dados[3];
 
-                Sala sa = new Sala(idSala, capacidadeSala, descricao, status);
+                sala = new Sala(idSala, capacidadeSala, descricao, status);
 
-                array.add(sa);
+                array.add(sala);
 
             }
             reader.close();
@@ -123,29 +123,35 @@ public class Sala {
     }
 
     public Sala consultar(Sala sala) {
-        System.out.println("Digite o id da sala que voce deseja consultar: ");
+        System.out.println("Digite o id da sala que voce deseja consultar ou associar: ");
         int idBuscado = scanner.nextInt();
         scanner.nextLine();
 
         ArrayList<Sala> array = this.listar(sala);
-        Sala salaEncontrada = null;
+
         try {
             for (Sala salas : array) {
                 if (salas.getIdSala() == idBuscado) {
-                    salaEncontrada = salas;
+                    sala = salas;
 
                     System.out.println("Id da sala: "
-                            + salaEncontrada.getIdSala() + " Capacidade da sala: " +salaEncontrada.capacidadeSala + " Descricao: "
-                            + salaEncontrada.getDescricao() + " Status: " + salaEncontrada.getStatus());
+                            + sala.idSala + " Capacidade da sala: " + sala.capacidadeSala + " Descricao: "
+                            + sala.descricao + " Status: " + sala.status);
 
                 }
             }
-            return salaEncontrada;
+            return sala;
 
         } catch (NullPointerException n) {
             n.printStackTrace();
             scanner.close();
-            return salaEncontrada;
+            return sala;
         }
+    }
+
+    public void exibir() {
+        System.out.println("Id da sala: "
+                + this.idSala + " Capacidade da sala: " + this.capacidadeSala + " Descricao: "
+                + this.descricao + " Status: " + this.status);
     }
 }
