@@ -25,7 +25,7 @@ public class Menu {
 
             if (operacao == 1) {
                 System.out.println("Acessando generos...\n" + "\nDigite os seguintes numeros para efetuar acoes:\n"
-                        + "\n1: Cadastrar novo genero" + "\n2: consultar ");
+                        + "\n1: Cadastrar novo genero" + "\n2: consultar " + "\n3: listar generos");
                 int operacaoClasse = scanner.nextInt();
                 scanner.nextLine();
 
@@ -49,6 +49,24 @@ public class Menu {
                     genero.consultar(genero);
 
                     System.out.println("Genero consultado com sucesso!\n\n" + "Deseja realizar mais alguma acao?\n"
+                            + "1 para sim\n2 para nao");
+                    int novaOperacao = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (novaOperacao == 1) {
+                        operacao = 0;
+                    } else {
+                        System.out.println("Ok, obrigado por utilizar o SISTcinema\nFechando sistema...");
+                        operacaoEncerrada = true;
+                    }
+                }
+
+                if (operacaoClasse == 3) {
+                    for (Genero generos : genero.listar(genero)) {
+                        generos.exibir();
+                    }
+
+                    System.out.println("Generos listados com sucesso!\n\n" + "Deseja realizar mais alguma acao?\n"
                             + "1 para sim\n2 para nao");
                     int novaOperacao = scanner.nextInt();
                     scanner.nextLine();

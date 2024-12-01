@@ -132,4 +132,10 @@ public class Genero {
             return genero;
         }
     }
+    
+    public void exibir() {
+        System.out.println("Id do genero: "
+                            + this.id + " Descricao: "
+                            + this.desc + " Status: " + this.status);
+    }
 }

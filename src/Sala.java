@@ -81,7 +81,6 @@ public class Sala {
             writer.write(sala.idSala + ";" + sala.capacidadeSala + ";" + sala.descricao + ";" + sala.status);
             writer.newLine();
 
-            scanner.close();
             writer.close();
             return true;
 
@@ -141,7 +140,6 @@ public class Sala {
 
                 }
             }
-            scanner.close();
             return salaEncontrada;
 
         } catch (NullPointerException n) {
