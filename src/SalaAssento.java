@@ -35,6 +35,22 @@ public class SalaAssento {
         this.idSalaAssento = idSalaAssento;
     }
 
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
+    public Assento getAssento() {
+        return assento;
+    }
+
+    public void setAssento(Assento assento) {
+        this.assento = assento;
+    }
+
     public Boolean cadastrar(SalaAssento salaAssento) {
         try {
             FileWriter fw = new FileWriter("SalaAssentos.txt", true);
