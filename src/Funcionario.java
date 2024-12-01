@@ -69,7 +69,6 @@ public class Funcionario extends Pessoa {
                     + funcionario.getCpf() + ";" + funcionario.getEmail());
             writer.newLine();
 
-            scanner.close();
             writer.close();
             return true;
 
@@ -131,7 +130,6 @@ public class Funcionario extends Pessoa {
 
                 }
             }
-            scanner.close();
             return funcionarioEncontrado;
 
         } catch (NullPointerException n) {
