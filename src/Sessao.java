@@ -167,7 +167,7 @@ public class Sessao {
     }
 
     public Sessao consultar(Sessao sessao) {
-        System.out.println("Informe o id da sessao que voce deseja consultar ou associar: ");
+        System.out.println("Digite o id da sessao que voce deseja consultar ou associar: ");
         int idBuscado = scanner.nextInt();
         scanner.nextLine();
 
@@ -177,7 +177,7 @@ public class Sessao {
                 if (sessoes.getIdSessao() == idBuscado) {
                     sessao = sessoes;
 
-                    System.out.println("A sessao foi encontrada com sucesso!\n");
+                    System.out.println("A sessao encontrada com sucesso!\n");
 
                     System.out.println("Id sessao: " + sessao.idSessao + "\nData e hora da sessao: "
                             + sessao.dataHoraSessao + "\nFilme em exibicao: " + sessao.filme.getTitulo() + "\nSala: "
@@ -193,5 +193,12 @@ public class Sessao {
             scanner.close();
             return sessao;
         }
+    }
+
+    public void exibir() {
+        System.out.println("Id sessao: " + this.idSessao + "\nData e hora da sessao: "
+                            + this.dataHoraSessao + "\nFilme em exibicao: " + this.filme.getTitulo() + "\nSala: "
+                            + this.sala.getIdSala() + "\nFuncionario responsavel: " + this.funcionario.getNome()
+                            + "\nStatus: " + this.status);
     }
 }

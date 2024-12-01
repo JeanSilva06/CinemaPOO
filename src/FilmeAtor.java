@@ -14,7 +14,7 @@ public class FilmeAtor {
     private Boolean principal;
     Scanner scanner = new Scanner(System.in);
 
-    //construtores
+    // construtores
 
     public FilmeAtor(int idFilmeAtor, Ator ator, Filme filme, String personagem, Boolean principal) {
         this.idFilmeAtor = idFilmeAtor;
@@ -34,34 +34,29 @@ public class FilmeAtor {
 
     }
 
-
-    //GETS
     public int getIdFilmeAtor() {
         return idFilmeAtor;
+    }
+
+    public void setIdFilmeAtor(int idFilmeAtor) {
+        this.idFilmeAtor = idFilmeAtor;
     }
 
     public String getPersonagem() {
         return personagem;
     }
 
-    public Boolean getPrincipal() {
-        return principal;
-    }
-
-
-    //SETS
-    public void setIdFilmeAtor(int idFilmeAtor) {
-        this.idFilmeAtor = idFilmeAtor;
-    }
-
     public void setPersonagem(String personagem) {
         this.personagem = personagem;
+    }
+
+    public Boolean getPrincipal() {
+        return principal;
     }
 
     public void setPrincipal(Boolean principal) {
         this.principal = principal;
     }
-    
 
     public Boolean cadastrar(FilmeAtor filmeAtor) {
         try {
@@ -73,13 +68,13 @@ public class FilmeAtor {
             scanner.nextLine();
 
             filmeAtor.ator = ator.consultar(ator);
-            
+
             filmeAtor.filme = filme.consultar(filme);
 
             System.out.println("Digite o nome do personagem interpretado pelo ator");
             filmeAtor.personagem = scanner.nextLine();
 
-            System.out.println("Este personagem e o principal do filme? \n\ndigite: \n\n1 - sim \n\n2 - nao");
+            System.out.println("Este personagem e o principal do filme?\n1 para sim \n2 para nao");
             int isPrincipal = scanner.nextInt();
 
             if (isPrincipal == 1) {
@@ -88,7 +83,8 @@ public class FilmeAtor {
                 filmeAtor.principal = false;
             }
 
-            writer.write(filmeAtor.idFilmeAtor + ";" +ator.getRegistro() + ";" + filme.getId() + ";" + filmeAtor.personagem + ";" + isPrincipal);
+            writer.write(filmeAtor.idFilmeAtor + ";" + ator.getRegistro() + ";" + filme.getId() + ";"
+                    + filmeAtor.personagem + ";" + isPrincipal);
             writer.newLine();
 
             writer.close();
@@ -138,12 +134,10 @@ public class FilmeAtor {
                 } else {
                     System.out.println("Nao foi possivel identificar");
                 }
-                // Boolean isPrincipal = (principal == 1);
+                
+                filmeAtor = new FilmeAtor(idFilmeAtor, ator, filme, personagem, isPrincipal);
 
-                //idFilme ator, Ator, Filme, personagem e Principal.
-                FilmeAtor fa = new FilmeAtor(idFilmeAtor, ator, filme, personagem, isPrincipal);
-
-                array.add(fa);
+                array.add(filmeAtor);
 
             }
             reader.close();
@@ -157,7 +151,7 @@ public class FilmeAtor {
     }
 
     public FilmeAtor consultar(FilmeAtor filmeAtor) {
-        System.out.println("Informe o id do filmeAtor que voce deseja consultar ou associar: ");
+        System.out.println("Informe o id do FilmeAtor que voce deseja consultar ou associar: ");
         int idBuscado = scanner.nextInt();
         scanner.nextLine();
 
@@ -167,9 +161,12 @@ public class FilmeAtor {
                 if (filmeAtores.getIdFilmeAtor() == idBuscado) {
                     filmeAtor = filmeAtores;
 
-                    System.out.println("O filmeAtor foi encontrado com sucesso!\n");
+                    System.out.println("O FilmeAtor foi encontrado com sucesso!\n");
 
-                    System.out.println("ID do FilmeAtor: " + filmeAtor.idFilmeAtor + "\n Receba o Ator: " + filmeAtor.ator.getNome()+ "\n  Receba o filme: " + filmeAtor.filme.getTitulo() + "\n Receba a personagem: " + filmeAtor.personagem + "\n O ator e a personagem principal do filme: " + filmeAtor.principal);
+                    System.out.println("Id do FilmeAtor: " + filmeAtor.idFilmeAtor + "\nNome do ator: "
+                            + filmeAtor.ator.getNome() + "\nParticipou do filme: " + filmeAtor.filme.getTitulo()
+                            + "\nPersonagem interpretada pelo ator: " + filmeAtor.personagem
+                            + "\nO ator e uma personagem principal do filme: " + filmeAtor.principal);
 
                 }
             }
@@ -180,5 +177,12 @@ public class FilmeAtor {
             scanner.close();
             return filmeAtor;
         }
+    }
+
+    public void exibir() {
+        System.out.println("Id do FilmeAtor: " + this.idFilmeAtor + "\nNome do ator: "
+                            + this.ator.getNome() + "\nParticipou do filme: " + this.filme.getTitulo()
+                            + "\nPersonagem interpretada pelo ator: " + this.personagem
+                            + "\nO ator e uma personagem principal do filme: " + this.principal);
     }
 }

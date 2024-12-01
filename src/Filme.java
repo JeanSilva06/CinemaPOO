@@ -187,4 +187,11 @@ public class Filme {
             return filme;
         }
     }
+
+    public void exibir() {
+        System.out.println(
+                            "Id do filme: " + this.id + "\nTitulo: " + this.titulo + "\nSinopse: "
+                                    + this.sinopse + "\nGenero: " + this.genero.getDesc() + "\nClassificacao: "
+                                    + this.classificacao + "\nStatus: " + this.status);
+    }
 }

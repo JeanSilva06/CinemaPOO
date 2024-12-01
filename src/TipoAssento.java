@@ -50,7 +50,7 @@ public class TipoAssento {
 
     public Boolean cadastrar(TipoAssento tipoAssento) {
         try {
-            FileWriter fw = new FileWriter("tiposDeAssentos.txt", true);
+            FileWriter fw = new FileWriter("TiposDeAssentos.txt", true);
             BufferedWriter writer = new BufferedWriter(fw);
 
             System.out.println("Digite o id para este tipo de assento: ");
@@ -67,7 +67,6 @@ public class TipoAssento {
             writer.write(tipoAssento.idTipoAssento + ";" + tipoAssento.descricao + ";" + tipoAssento.status);
             writer.newLine();
 
-            scanner.close();
             writer.close();
             return true;
 
@@ -83,7 +82,7 @@ public class TipoAssento {
         ArrayList<TipoAssento> array = new ArrayList<>();
 
         try {
-            FileReader fr = new FileReader("tiposDeAssentos.txt");
+            FileReader fr = new FileReader("TiposDeAssentos.txt");
             BufferedReader reader = new BufferedReader(fr);
             String linha;
 
@@ -93,9 +92,9 @@ public class TipoAssento {
                 String descricao = dados[1];
                 String status = dados[2];
 
-                TipoAssento tA = new TipoAssento(idTipoAssento, descricao, status);
+                tipoAssento = new TipoAssento(idTipoAssento, descricao, status);
 
-                array.add(tA);
+                array.add(tipoAssento);
 
             }
             reader.close();
@@ -114,25 +113,30 @@ public class TipoAssento {
         scanner.nextLine();
 
         ArrayList<TipoAssento> array = this.listar(tipoAssento);
-        TipoAssento assentoEncontrado = null;
+        
         try {
             for (TipoAssento assentos : array) {
                 if (assentos.getIdTipoAssento() == idBuscado) {
-                    assentoEncontrado = assentos;
+                    tipoAssento = assentos;
 
                     System.out.println("Id do assento: "
-                            + assentoEncontrado.getIdTipoAssento() + " Descricao: "
-                            + assentoEncontrado.getDescricao() + " Status: " + assentoEncontrado.getStatus());
+                            + tipoAssento.idTipoAssento + " Descricao: "
+                            + tipoAssento.descricao + " Status: " + tipoAssento.status);
 
                 }
             }
-            scanner.close();
-            return assentoEncontrado;
+            return tipoAssento;
 
         } catch (NullPointerException n) {
             n.printStackTrace();
             scanner.close();
-            return assentoEncontrado;
+            return tipoAssento;
         }
+    }
+
+    public void exibir() {
+        System.out.println("Id do assento: "
+        + this.idTipoAssento + " Descricao: "
+        + this.descricao + " Status: " + this.status);
     }
 }

@@ -14,13 +14,11 @@ public class Assento {
     public Assento() {
         this.idAssento = 0;
         this.tipoAssento = new TipoAssento();
-
     }
     
     public Assento(int idAssento, TipoAssento tipoAssento) {
         this.idAssento = idAssento;
         this.tipoAssento = tipoAssento;
-
     }
 
     public int getIdAssento() {
@@ -29,6 +27,14 @@ public class Assento {
 
     public void setIdAssento(int idAssento) {
         this.idAssento = idAssento;
+    }
+
+    public TipoAssento getTipoAssento() {
+        return tipoAssento;
+    }
+
+    public void setTipoAssento(TipoAssento tipoAssento) {
+        this.tipoAssento = tipoAssento;
     }
 
     public Boolean cadastrar(Assento assento) {
@@ -102,7 +108,7 @@ public class Assento {
 
                     System.out.println("Assento encontrado com sucesso!\n");
 
-                    System.out.println("ID do assento: " + assento.idAssento + "\n Receba o tipo do assento: " + assento.tipoAssento.getDescricao());
+                    System.out.println("Id do assento: " + assento.idAssento + "\nTipo do assento: " + assento.tipoAssento.getDescricao());
 
                 }
             }
@@ -113,5 +119,9 @@ public class Assento {
             scanner.close();
             return assento;
         }
+    }
+
+    public void exibir() {
+        System.out.println("Id do assento: " + this.idAssento + "\nTipo do assento: " + this.tipoAssento.getDescricao());
     }
 }

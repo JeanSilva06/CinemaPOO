@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class SalaAssento {
     private int idSalaAssento;
     private Assento assento = new Assento();
@@ -17,14 +16,12 @@ public class SalaAssento {
         this.idSalaAssento = idSalaAssento;
         this.assento = assento;
         this.sala = sala;
-
     }
 
     public SalaAssento() {
         this.idSalaAssento = 0;
         this.assento = new Assento();
         this.sala = new Sala();
-
     }
 
     public int getIdSalaAssento() {
@@ -61,10 +58,10 @@ public class SalaAssento {
             scanner.nextLine();
 
             salaAssento.assento = assento.consultar(assento);
-            
+
             salaAssento.sala = sala.consultar(sala);
 
-            writer.write(salaAssento.idSalaAssento + ";" +assento.getIdAssento() + ";" + sala.getIdSala());
+            writer.write(salaAssento.idSalaAssento + ";" + assento.getIdAssento() + ";" + sala.getIdSala());
             writer.newLine();
 
             writer.close();
@@ -104,7 +101,7 @@ public class SalaAssento {
                     }
                 }
 
-                salaAssento = new SalaAssento(idSalaAssento, assento ,sala);
+                salaAssento = new SalaAssento(idSalaAssento, assento, sala);
                 array.add(salaAssento);
 
             }
@@ -119,7 +116,7 @@ public class SalaAssento {
     }
 
     public SalaAssento consultar(SalaAssento salaAssento) {
-        System.out.println("Informe o id da sala assento que voce deseja consultar ou associar: ");
+        System.out.println("Digite o id da sala assento que voce deseja consultar ou associar: ");
         int idBuscado = scanner.nextInt();
         scanner.nextLine();
 
@@ -129,9 +126,10 @@ public class SalaAssento {
                 if (salaAssentos.getIdSalaAssento() == idBuscado) {
                     salaAssento = salaAssentos;
 
-                    System.out.println("A Sala assento foi encontrada com sucesso!\n");
+                    System.out.println("SalaAssento encontrada com sucesso!\n");
 
-                    System.out.println("ID da Sala assento: " + salaAssento.idSalaAssento + "\n Receba o assento: " + salaAssento.assento.getIdAssento()+ "\n Receba a Sala: " + salaAssento.sala.getIdSala());
+                    System.out.println("Id da Sala assento: " + salaAssento.idSalaAssento + "\nNumero do Assento: "
+                            + salaAssento.assento.getIdAssento() + "\nNumero da sala: " + salaAssento.sala.getIdSala());
 
                 }
             }
@@ -142,5 +140,10 @@ public class SalaAssento {
             scanner.close();
             return salaAssento;
         }
+    }
+
+    public void exibir() {
+        System.out.println("Id da Sala assento: " + this.idSalaAssento + "\nNumero do Assento: "
+                            + this.assento.getIdAssento() + "\nNumero da sala: " + this.sala.getIdSala());
     }
 }

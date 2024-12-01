@@ -41,10 +41,10 @@ public class Funcionario extends Pessoa {
 
     public Boolean cadastrar(Funcionario funcionario) {
         try {
-            FileWriter fw = new FileWriter("funcionarios.txt", true);
+            FileWriter fw = new FileWriter("Funcionarios.txt", true);
             BufferedWriter writer = new BufferedWriter(fw);
 
-            System.out.println("Digite a matricula para este funcionario: ");
+            System.out.println("Digite uma matricula para este funcionario: ");
             funcionario.matricula = scanner.nextInt();
             scanner.nextLine();
 
@@ -84,14 +84,14 @@ public class Funcionario extends Pessoa {
         ArrayList<Funcionario> array = new ArrayList<>();
 
         try {
-            FileReader fr = new FileReader("funcionarios.txt");
+            FileReader fr = new FileReader("Funcionarios.txt");
             BufferedReader reader = new BufferedReader(fr);
             String linha;
 
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";");
                 int matricula = Integer.parseInt(dados[0]);
-                String horarioTrabalho = dados[1]; // perguntar sobre String --> date
+                String horarioTrabalho = dados[1];
                 String nome = dados[2];
                 String cpf = dados[3];
                 String email = dados[4];
@@ -112,30 +112,37 @@ public class Funcionario extends Pessoa {
     }
 
     public Funcionario consultar(Funcionario funcionario) {
-        System.out.println("Digite a matricula do funcionario que voce deseja consultar: ");
+        System.out.println("Digite a matricula do funcionario que voce deseja consultar ou associar: ");
         int matriculaBuscada = scanner.nextInt();
         scanner.nextLine();
 
         ArrayList<Funcionario> array = this.listar(funcionario);
-        Funcionario funcionarioEncontrado = null;
+        
         try {
             for (Funcionario funcionarios : array) {
                 if (funcionarios.getMatricula() == matriculaBuscada) {
-                    funcionarioEncontrado = funcionarios;
+                    funcionario = funcionarios;
 
-                    System.out.println("Matricula: " + funcionarioEncontrado.getMatricula() + " Horario de trabalho: "
-                            + funcionarioEncontrado.getHorarioTrabalho() + " Nome: "
-                            + funcionarioEncontrado.getNome() + " CPF: " + funcionarioEncontrado.getCpf() + " Email: "
-                            + funcionarioEncontrado.getEmail());
+                    System.out.println("Matricula: " + funcionario.matricula + " Horario de trabalho: "
+                            + funcionario.horarioTrabalho + " Nome: "
+                            + funcionario.getNome() + " CPF: " + funcionario.getCpf() + " Email: "
+                            + funcionario.getEmail());
 
                 }
             }
-            return funcionarioEncontrado;
+            return funcionario;
 
         } catch (NullPointerException n) {
             n.printStackTrace();
             scanner.close();
-            return funcionarioEncontrado;
+            return funcionario;
         }
+    }
+
+    public void exibir() {
+        System.out.println("Matricula: " + this.matricula + " Horario de trabalho: "
+                            + this.horarioTrabalho + " Nome: "
+                            + this.getNome() + " CPF: " + this.getCpf() + " Email: "
+                            + this.getEmail());
     }
 }
